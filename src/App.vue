@@ -6,20 +6,24 @@
 
 <script>
 // import jsonp from "jsonp"
-import storage from './storage'
+// import storage from './storage'
 export default {
   name: 'App',
   data(){
     return{
-     
+      res:{}
     }
   },
   components: {
     
   },
   mounted(){
-      storage.setItem("user",{"userName":"jack","age":18,"sex":1});
-      // storage.clear("a","user");
+    this.axios.get('/mock/user/login.json').then((res)=>{
+        this.res=res;
+
+    });
+
+      
   }
 }
 </script>
