@@ -29,7 +29,7 @@
                                 <li class="product" v-for="(item,index) in phonelist" :key="index" >
                                     <a v-bind:href="'/#/product/'+item.id" target="_blank">
                                         <div class="pro-img">
-                                            <img :src="item.mianImage" :alt="item.subtitle">
+                                            <img :src="item.mainImage" :alt="item.subtitle">
                                         </div>
                                         <div class="pro-name">{{item.name}}</div>
                                         <div class="pro-price">{{item.price | currency}}</div>
@@ -164,7 +164,7 @@ export default {
     name:'nav-h',
     data(){
         return{
-            username:'Jack', 
+            username:'jack', 
             phonelist:[]
         }
     },

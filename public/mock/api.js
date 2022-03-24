@@ -12,3 +12,58 @@ Mock.mock('/api/user/login', {
         "updateTime": 1479048325000
     }
 });
+Mock.mock('/api/products', {
+    "status": 0,
+    "data": {
+        list: [{
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            },
+            {
+                "mainImage": "/imgs/product.jpg",
+                "name": "RedMi",
+                "subtitle": "曲面屏，高像素",
+                "price|2000-3000": 0
+            }
+        ],
+    }
+
+});

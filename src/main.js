@@ -5,7 +5,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // import env from './env'
 // 根据前端的跨域方式做调整,接口代理情况
-const mock = false;
+const mock = true;
 if (mock) {
     require('../public/mock/api');
 }
