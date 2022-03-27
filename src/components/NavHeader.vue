@@ -29,56 +29,10 @@
                                 <li class="product" v-for="(item,index) in phonelist" :key="index" >
                                     <a v-bind:href="'/#/product/'+item.id" target="_blank">
                                         <div class="pro-img">
-                                            <img :src="item.mainImage" :alt="item.subtitle">
+                                            <img v-lazy="item.mainImage" :alt="item.subtitle">
                                         </div>
                                         <div class="pro-name">{{item.name}}</div>
                                         <div class="pro-price">{{item.price | currency}}</div>
-                                        
-                                    </a>
-                                </li>
-                                <li class="product">
-                                    <a href="" target="_blank">
-                                        <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-2.png" alt="">
-                                        </div>
-                                        <div class="pro-name">小米CC9</div>
-                                        <div class="pro-price">1799元</div>
-                                    </a>
-                                </li>
-                                <li class="product">
-                                    <a href="" target="_blank">
-                                        <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3.png" alt="">
-                                        </div>
-                                        <div class="pro-name">小米CC9</div>
-                                        <div class="pro-price">1799元</div>
-                                    </a>
-                                </li>
-                                <li class="product">
-                                    <a href="" target="_blank">
-                                        <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-4.png" alt="">
-                                        </div>
-                                        <div class="pro-name">小米CC9</div>
-                                        <div class="pro-price">1799元</div>
-                                    </a>
-                                </li>
-                                <li class="product">
-                                    <a href="" target="_blank">
-                                        <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-5.png" alt="">
-                                        </div>
-                                        <div class="pro-name">小米CC9</div>
-                                        <div class="pro-price">1799元</div>
-                                    </a>
-                                </li>
-                                <li class="product">
-                                    <a href="" target="_blank">
-                                        <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-6.png" alt="">
-                                        </div>
-                                        <div class="pro-name">小米CC9</div>
-                                        <div class="pro-price">1799元</div>
                                     </a>
                                 </li>
                             </ul>
@@ -94,7 +48,7 @@
                                 <li class="product">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-1.jpg" alt="">
+                                            <img v-lazy='"/imgs/nav-img/nav-3-1.jpg"' alt="">
                                         </div>
                                         <div class="pro-name">小米壁画电视 65英寸</div>
                                         <div class="pro-price">6999元</div>
@@ -103,7 +57,7 @@
                                 <li class="product">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-2.jpg" alt="">
+                                            <img v-lazy='"/imgs/nav-img/nav-3-2.jpg"' alt="">
                                         </div>
                                         <div class="pro-name">小米全面电视E55A</div>
                                         <div class="pro-price">1999元</div>
@@ -112,7 +66,7 @@
                                 <li class="product">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-3.png" alt="">
+                                            <img v-lazy='"/imgs/nav-img/nav-3-3.png"' alt="">
                                         </div>
                                         <div class="pro-name">小米电视4A 32英寸</div>
                                         <div class="pro-price">699元</div>
@@ -121,7 +75,7 @@
                                 <li class="product">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-4.jpg" alt="">
+                                            <img v-lazy='"/imgs/nav-img/nav-3-4.jpg"' alt="">
                                         </div>
                                         <div class="pro-name">小米电视4A 56英寸</div>
                                         <div class="pro-price">1799元</div>
@@ -130,7 +84,7 @@
                                 <li class="product">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-5.jpg" alt="">
+                                            <img v-lazy='"/imgs/nav-img/nav-3-5.jpg"' alt="">
                                         </div>
                                         <div class="pro-name">小米CC9</div>
                                         <div class="pro-price">1699元</div>
@@ -139,7 +93,7 @@
                                 <li class="product">
                                     <a href="" target="_blank">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-6.png" alt="">
+                                            <img v-lazy='"/imgs/nav-img/nav-3-6.png"' alt="">
                                         </div>
                                         <div class="pro-name">小米CC9</div>
                                         <div class="pro-price">1799元</div>
@@ -164,7 +118,7 @@ export default {
     name:'nav-h',
     data(){
         return{
-            username:'jack', 
+            username:'', 
             phonelist:[]
         }
     },
@@ -182,12 +136,13 @@ export default {
             this.$router.push('/login');
         },
         getProductList(){
-            this.axios.get('/products',{
-                params:{//get方式请求要写params
-                    categoryId:'100012',
-                    pageSize:6
-                }
-            }).then((res)=>{
+            this.axios.get('/products',
+            // {
+                // params:{//get方式请求要写params
+                //     categoryId:'100012',
+                //     pageSize:6
+            // }}
+            ).then((res)=>{
                 if(res.list.length>=6){
                     this.phonelist=res.list.slice(0,6);
                 }
@@ -221,6 +176,7 @@ export default {
                  background-color: #FF6600;
                  text-align: center;
                  color: #ffffff;
+                 margin-right:0px;
                  .icon-cart{
                     @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
                      margin-right: 4px;

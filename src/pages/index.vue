@@ -60,13 +60,13 @@
                 </swiper>
             </div>
             <div class="ads-box">
-                <a href="'/#/product/'+item.id" v-for="(item,index) in adsList" v-bind:key="index">
-                    <img v-bind:src="item.img" alt="">
+                <a v-bind:href="'/#/product/'+item.id" v-for="(item,index) in adsList" v-bind:key="index">
+                    <img v-lazy="item.img" alt="">
                 </a>
             </div>
             <div class="banner">
-                <a href="'/#/product/30">
-                    <img src="/imgs/banner-1.png" alt="">
+                <a href="/#/product/30">
+                    <img v-lazy='"/imgs/banner-1.png"' alt="">
                 </a>
             </div>
         </div>
@@ -76,7 +76,7 @@
                 <div class="wrapper">
                     <div class="banner-left">
                         <a href="/#/product/35">
-                            <img src="/imgs/mix-alpha.jpg" alt="">
+                            <img v-lazy='"/imgs/mix-alpha.jpg"' alt="">
                         </a>
                     </div>
                     <div class="list-box">
@@ -86,12 +86,12 @@
                                 <span class="new-pro" v-if="index%2==0">新品</span>
                                 <span class="kill-pro" v-if="index%2==1">秒杀</span>
                                 <div class="item-img">
-                                    <img v-bind:src="item.mainImage" alt="">
+                                    <img v-lazy="item.mainImage" alt="">
                                 </div>
                                 <div class="item-info">
                                     <h3>{{item.name}}</h3>
                                     <p>{{item.subtitle}}</p>
-                                    <p class="price">{{item.price}}元</p>
+                                    <p class="price" @click="addCart(item.id)">{{item.price}}元</p>
                                 </div>
                             </div>
                         </div>
@@ -102,11 +102,18 @@
                
             </div>
         <service-bar></service-bar>
+         <modal title="提示" sureText="查看购物车" btnType="3" modalType="middle" v-bind:showModal="showModal" @submit="goToCart" v-on:cancel="showModal=false">
+            <template v-slot:body>
+                <p>商品添加成功</p>
+            </template>
+         </modal>
     </div>
+   
 </template>
 
 <script>
-import ServiceBar from './../components/ServiceBar'
+import ServiceBar from './../components/ServiceBar'  
+import Modal from './../components/Modal'
 import {swiper,swiperSlide} from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 export default {
@@ -114,7 +121,8 @@ export default {
     components:{
         swiper,
         swiperSlide,
-        ServiceBar
+        ServiceBar,
+        Modal
 
     },
     data(){
@@ -228,6 +236,7 @@ export default {
                         }
                     ],
             phoneList:[],
+            showModal:false,
            
 
            }
@@ -241,11 +250,27 @@ export default {
             //,{
             //      params:{//get用params传参
             //          categoryId:100012,//手机品类的id是100012
-            //          pageSize:8//拉取8条数据
+            //          pageSize:14//拉取14条数据
             //      }}
              ).then((res)=>{
-                    this.phoneList=[res.list.slice(0,4),res.list.slice(4,8)];
+                res.list=res.list.slice(6,14);
+                this.phoneList=[res.list.slice(0,4),res.list.slice(4,8)];
              })
+        },
+        addCart(){
+            this.showModal=true;
+            
+            // this.axios.post('/carts',{
+            //     productId:id,
+            //     selected:true
+            // }).then(()=>{
+
+            // }).catch(()=>{
+            //     this.showModal=true
+            // })
+        },
+        goToCart(){
+            this.$router.push('/cart')
         }
     },
     
@@ -262,7 +287,7 @@ export default {
                 position: absolute;
                 width:264px;
                 height:451px;
-                z-index:10; 
+                z-index:8; 
                 padding: 26px 0;
                 background-color:#55585a7a;
                 box-sizing: border-box;

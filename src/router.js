@@ -9,6 +9,8 @@ import Cart from './pages/cart'
 import OrderConfirm from './pages/orderConfirm'
 import OrderList from './pages/orderList'
 import OrderPay from './pages/orderPay'
+import Login from './pages/login'
+
 
 Vue.use(Router);
 
@@ -17,6 +19,7 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
+            redirect: '/index',
             children: [{
                     path: '/index',
                     name: 'index',
@@ -33,6 +36,11 @@ export default new Router({
                     component: Detail
                 }
             ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
         },
         {
             path: '/cart',
