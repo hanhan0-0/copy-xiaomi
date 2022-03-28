@@ -10,7 +10,6 @@
 export default {
   name: 'App',
   data(){
-    
     return{
       res:{},
       username:''
@@ -21,21 +20,20 @@ export default {
   },
   mounted(){
     this.getUser();
-    // this.getCartCount();
+    this.getCartCount();
   },
   methods:{
     getUser(){
-      this.axios.get('/user').then(()=>{
+      this.axios.get('/user').then((res)=>{
         //todo，保存到vuex里面
-       
-        
+        this.$store.dispatch('saveUserName',res.username);
       })
     },
-    // getCartCount(){
-    //   this.axios.get('/carts/products/sum').then(()=>{
-
-    //   })
-    // }
+    getCartCount(){
+      this.axios.get('/carts/products/sum').then((res)=>{
+        this.$store.dispatch('saveCartCount',res);
+      })
+    }
   }
 } 
 </script>

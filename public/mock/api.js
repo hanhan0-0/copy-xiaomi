@@ -1,10 +1,10 @@
 import Mock from 'mockjs'
 //第一个参数是请求地址，第二个是返回值,当拦截到匹配 url 的 Ajax 请求时根据数据模板生成模拟数据
-let userinfo;
-// var productNum = 0;
+var productNum = 20;
 const userList = {
         "data": [{
                 "id|1-3": 0,
+                "num": 0,
                 "username": "jack",
                 "password": "123456",
                 "email": "admin@51purse.com",
@@ -15,6 +15,7 @@ const userList = {
             },
             {
                 "id|1-3": 0,
+                "num": 1,
                 "username": "xiaoming",
                 "password": "$180518",
                 "email": "admin@51purse.com",
@@ -25,7 +26,8 @@ const userList = {
             },
             {
                 "id|1-3": 0,
-                "username": "aimi",
+                "num": 2,
+                "username": "张文涵",
                 "password": "yhlanyu02100810",
                 "email": "admin@51purse.com",
                 "phone": null,
@@ -57,14 +59,12 @@ Mock.mock('/api/user/register', 'post', (req) => {
 //登录
 Mock.mock('/api/user/login', 'post', (req) => {
     const { password, username } = JSON.parse(req.body)
-    for (let i = 0; i < userList.data.length; i++) {
+    for (var num = 0; num < userList.data.length; num++) {
         //判断userList中是否存在该用户并且用户密码是否正确
-        if (username === userList.data[i].username && password === userList.data[i].password) {
-            userinfo = userList.data[i];
-            console.log(userinfo);
+        if (username === userList.data[num].username && password === userList.data[num].password) {
             return {
                 status: 0,
-                data: userList.data[i]
+                data: userList.data[num]
             }
         }
     }
@@ -75,27 +75,20 @@ Mock.mock('/api/user/login', 'post', (req) => {
 });
 //拉取登录用户信息
 Mock.mock('/api/user', 'get', () => {
-    console.log(userinfo);
-    if (userinfo) {
-        return {
-            status: 0,
-            data: userinfo
-        }
-    } else {
-        return {
-            status: 10
-        }
+    return {
+        status: 0,
+        msg: "拉取成功",
+        data: userList.data[0]
     }
 });
-// //拉去产品数量
-// Mock.mock('/api/carts/products/sum', 'get', () => {
-
-//     return {
-//         status: 0,
-//         data: productNum
-//     }
-
-// });
+// 拉去产品数量
+Mock.mock('/api/carts/products/sum', 'get', () => {
+    return {
+        status: 0,
+        msg: "拉取成功",
+        data: productNum
+    }
+});
 Mock.mock('/api/products', {
     "status": 0,
     "data": {

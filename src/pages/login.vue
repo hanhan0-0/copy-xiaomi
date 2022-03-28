@@ -16,7 +16,7 @@
             <input type="password" placeholder="请输入密码" v-model="password">
           </div>
           <div class="btn-box">
-            <div class="btn" @click="login">登录</div>
+            <a href="javascript:;" class="btn" @click="login">登录</a>
           </div>
           <div class="tips">
             <div class="sms" @click="register">手机短信登录/注册</div>
@@ -44,7 +44,8 @@ export default {
     return {
       username:'',
       password:'',
-      userId:''
+      userId:'',
+      
     }
   },
   methods:{
@@ -55,7 +56,8 @@ export default {
         password
       }).then((res)=>{
         this.$cookie.set('userId',res.id,{expires:'1M'});
-        // this.$store.dispatch('saveUserName',res.username);
+        this.$store.dispatch('saveUserName',res.username);
+        
         // this.saveUserName(res.username);
         this.$router.push('/index');
       })
