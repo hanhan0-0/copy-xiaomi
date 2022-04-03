@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
 //第一个参数是请求地址，第二个是返回值,当拦截到匹配 url 的 Ajax 请求时根据数据模板生成模拟数据
 var productNum = 20;
+var num;
 const userList = {
         "data": [{
                 "id|1-3": 0,
@@ -59,7 +60,7 @@ Mock.mock('/api/user/register', 'post', (req) => {
 //登录
 Mock.mock('/api/user/login', 'post', (req) => {
     const { password, username } = JSON.parse(req.body)
-    for (var num = 0; num < userList.data.length; num++) {
+    for (num = 0; num < userList.data.length; num++) {
         //判断userList中是否存在该用户并且用户密码是否正确
         if (username === userList.data[num].username && password === userList.data[num].password) {
             return {
@@ -78,7 +79,7 @@ Mock.mock('/api/user', 'get', () => {
     return {
         status: 0,
         msg: "拉取成功",
-        data: userList.data[0]
+        data: userList.data[0],
     }
 });
 // 拉去产品数量
