@@ -24,7 +24,8 @@ axios.interceptors.response.use(function(response) {
         return res.data;
     } else if (res.status == 10) { //10是未登录
         if (path != '#/index')
-            window.location.href = '/#/login' //路由是挂在在vue实例上的，在每个页面才能用
+            window.location.href = '/#/login'; //路由是挂在在vue实例上的，在每个页面才能用
+        return Promise.reject(res);
     } else {
         alert(res.msg);
         return Promise.reject(); //抛出异常报错

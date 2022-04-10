@@ -1,14 +1,14 @@
 <template>
   <div class="product">
-    <product-param title="小米9">
+    <product-param v-bind:title="product.name">
       <template v-slot:buy>
-        <button class="btn">立即购买</button>
+        <button class="btn" @click="godetail">立即购买</button>
       </template>
     </product-param>
     <div class="content">
       <div class="item-bg">
-        <h2>小米9</h2>
-        <h3>小米9 战斗天使</h3>
+        <h2>{{product.name}}</h2>
+        <h3>{{product.subtitle}}</h3>
         <p>
           <a href="" id="">全球首款双频 GP</a>
           <span>|</span>
@@ -19,7 +19,7 @@
           <a href="" id="">红外人脸识别</a>
         </p>
         <div class="price">
-          <span>￥<em>2599</em></span>
+          <span>￥<em>{{product.price}}</em></span>
         </div>
       </div>
       <div class="item-bg-2"></div>
@@ -44,6 +44,7 @@
           <div class="overlay"></div>
           <div class="video" v-bind:class="showSlide">
             <span class="icon-close" @click="closeVideo"></span>
+            <!-- muted 让音频静音输出 autoplay是自动播放 controls加一些控制的效果，如播放和进度条-->
             <video src="/imgs/product/video.mp4" muted autoplay controls="controls"></video>
           </div>
         </div>
@@ -77,7 +78,22 @@
         }
       }
     },
+    mounted(){
+      this.getProductInfo();
+
+    },
     methods:{
+      getProductInfo(){
+        let id=this.$route.params.id;
+        this.axios.get(`/products/${id}`).then((res)=>{
+          this.product=res;
+        })
+
+      },
+      godetail(){
+        let id=this.$route.params.id;
+        this.$router.push(`/detail/${id}`);
+      },
       closeVideo(){
         this.showSlide='slideUp';
         setTimeout(()=>{
@@ -221,8 +237,9 @@
             video{
               width:100%;
               height:100%;
+            //   把原生阴影去掉，cover把视频内容覆盖整个窗口，contain将视频适配到整个窗口
               object-fit:cover;
-              outline:none;
+              outline:none; 
             }
           }
         }
