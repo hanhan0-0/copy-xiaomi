@@ -21,8 +21,10 @@ export default {
   mounted(){
     this.getUser();
     this.getCartCount();
+    // storage.setItem("productnum", 0);
   },
   methods:{
+    
     getUser(){
       this.axios.get('/user').then((res={})=>{
         //todo，保存到vuex里面

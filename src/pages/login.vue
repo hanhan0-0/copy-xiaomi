@@ -38,6 +38,7 @@
 </template>
 <script>
 // import { mapActions } from 'vuex';
+import storage from '../storage'
 export default {
   name: 'login',
   data(){
@@ -57,7 +58,10 @@ export default {
       }).then((res)=>{
         this.$cookie.set('userId',res.id,{expires:'1M'});
         this.$store.dispatch('saveUserName',res.username);
-        
+        storage.setItem("user", res.username);
+        storage.setItem("productnum", 0);
+       
+
         // this.saveUserName(res.username);
         this.$router.push('/index');
       })

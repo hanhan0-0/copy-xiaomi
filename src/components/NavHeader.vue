@@ -27,7 +27,7 @@
                         <div class="children">
                             <ul> 
                                 <li class="product" v-for="(item,index) in phonelist" :key="index" >
-                                    <a v-bind:href="'/#/product/'+item.id" target="_blank">
+                                    <a v-bind:href="'/#/product/'+item.id" >
                                         <div class="pro-img">
                                             <img v-lazy="item.mainImage" :alt="item.subtitle">
                                         </div>
@@ -46,7 +46,7 @@
                         <div class="children">
                              <ul>
                                 <li class="product">
-                                    <a href="" target="_blank">
+                                    <a href="" >
                                         <div class="pro-img">
                                             <img v-lazy='"/imgs/nav-img/nav-3-1.jpg"' alt="">
                                         </div>
@@ -114,6 +114,7 @@
     </div>
 </template>
 <script>
+import storage from '../storage'
 export default {
     name:'nav-h',
     data(){
@@ -123,10 +124,10 @@ export default {
     },
     computed:{
         username(){
-            return this.$store.state.username;
+            return storage.getItem("user");
         },
         cartCount(){
-            return this.$store.state.cartCount;
+            return storage.getItem("productnum");
         }
     },
     filters:{//过滤器
@@ -196,30 +197,7 @@ export default {
                 position: relative;
                 height: 112px;
                 @include flex();
-                .header-logo{
-                    display: inline-block;
-                    width: 55px;
-                    height: 55px;
-                    background-color: #FF6600;
-                    a{
-                        display: inline-block;
-                        width: 110px;
-                        height: 55px;
-                        &:before{
-                            content: ' ';
-                            @include bgImg(55px,55px,'/imgs/mi-logo.png',55px);
-                            transition: margin .2s;
-                        }
-                        &:after{
-                            content: ' ';
-                            @include bgImg(55px,55px,'/imgs/mi-home.png',55px);
-                        }
-                        &:hover:before{
-                            margin-left: -55px;
-                            transition: margin .2s;
-                        }
-                    }
-                }
+                
                 .header-menu{
                     display: inline-block;
                     width: 643px;

@@ -116,6 +116,7 @@ import ServiceBar from './../components/ServiceBar'
 import Modal from './../components/Modal'
 import {swiper,swiperSlide} from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
+import storage from '../storage'
 export default {
     name:'index',
     components:{
@@ -127,6 +128,7 @@ export default {
     },
     data(){
         return{
+            num:0,
             swiperOption:{
                 autoplay:true,
                 loop:true,
@@ -258,16 +260,14 @@ export default {
              })
         },
         addCart(){
-            
-            
             this.axios.post('/carts',{
-               
                 selected:true
-            }).then((res)=>{
+            }).then(()=>{
                 this.showModal=true,
-            this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
-                
-
+                this.num=storage.getItem("productnum");
+                this.num++;
+                storage.setItem("productnum",this.num);
+                // this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
             }).catch(()=>{
                 this.showModal=true
             })

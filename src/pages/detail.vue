@@ -64,10 +64,12 @@
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import ProductParam from './../components/ProductParam'
 import ServiceBar from './../components/ServiceBar';
+import storage from '../storage'
 export default{
   name:'detail',
   data(){
     return {
+      num:0,
         id:this.$route.params.id,
         version:1,
         product:{},
@@ -95,8 +97,11 @@ export default{
         this.axios.post(`/carts/${this.id}`,{
             productId:this.id, 
             selected:true
-        }).then((res={})=>{
-            this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+        }).then(()=>{
+            // this.$store.dispatch('saveCartCount',res.cartTotalQuantity);
+             this.num=storage.getItem("productnum");
+                this.num++;
+                storage.setItem("productnum",this.num);
             this.$router.push('/cart');
         })
       
@@ -105,7 +110,6 @@ export default{
        
         this.axios.get(`/products/${this.id}`).then((res)=>{
             this.product=res;
-
         })
     }
   }
