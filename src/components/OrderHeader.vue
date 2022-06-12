@@ -35,6 +35,7 @@ export default {
  
     .order-header{
         padding: 30px 0px;
+        border-bottom: 2px solid #ff6600;
         .header-logo{
             float: left;
         }
@@ -45,15 +46,15 @@ export default {
             
         }
         .title{
-            font-size: 28px;
+            h2{font-size: 28px;color: #333333;}
             float: left;
-            color: #333333;
+            
             margin-left:54px;
             span{
                 font-size: 14px;
                 margin-left: 17px;
                 color  :#999999;
-                font-weight: bold;
+                font-weight: 200;
             }
         }
         .username{

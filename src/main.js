@@ -6,6 +6,8 @@ import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
 import store from './store'
+import { Message } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 // import storage from './storage'
 // import env from './env'
 // 根据前端的跨域方式做调整,接口代理情况
@@ -22,14 +24,13 @@ axios.interceptors.response.use(function(response) {
     let res = response.data; //获取接口返回的值
     let path = location.hash;
     if (res.status == 0) { //0是成功
-
         return res.data;
     } else if (res.status == 10) { //10是未登录
         if (path != '#/index')
             window.location.href = '/#/login'; //路由是挂在在vue实例上的，在每个页面才能用
         return Promise.reject(res);
     } else {
-        alert(res.msg);
+        Message.error(res.msg);
         return Promise.reject(); //抛出异常报错
     }
 
@@ -41,6 +42,8 @@ Vue.use(VueLazyLoad, {
     loading: '/imgs/loading-svg/loading-bars.svg'
 });
 Vue.use(VueCookie);
+
+Vue.prototype.$message = Message;
 Vue.config.productionTip = false
 
 new Vue({

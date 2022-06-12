@@ -156,8 +156,10 @@ Mock.mock('/api/user/register', 'post', (req) => {
     };
     userList.data.push(arr);
     return {
-        status: 200,
-        msg: "注册成功"
+        status: 0,
+        data: {
+            "msg": "注册成功"
+        }
     }
 });
 //登录

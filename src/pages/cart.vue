@@ -58,6 +58,7 @@
   import OrderHeader from './../components/OrderHeader'
   import ServiceBar from './../components/ServiceBar'
   import NavFooter from './../components/NavFooter'
+  import { Message } from 'element-ui'
   export default{
     name:'index',
     components:{
@@ -81,7 +82,7 @@
       order(){
         let isChecked = this.list.every(item=>!item.productSelected);
         if(isChecked){
-            alert('请选择一件商品'); 
+            Message.warning('请选择一件商品'); 
         }else{
             this.$router.push('/order/confirm');
         }
@@ -91,7 +92,7 @@
           this.axios.get('/carts').then((res)=>{
               this.list=res.cartVoList || [];
               this.allChecked=res.selectedAll;
-              this.cartTotalPrice=res.cartTotalPrice;
+              this.cartTotalPrice=res.cartTotalPrice ;
             //   this.checkedNum=res.cartTotalQuantity; 
             this.checkedNum=this.list.filter(item=>item.productSelected).length;
           })
@@ -102,7 +103,7 @@
           let selected=item.productSelected;
           if(type == '-'){
               if(quantity==1){
-                     alert('商品至少保留一件');
+                     Message.warning('商品至少保留一件');
                      return;
                 }
                  --quantity;
@@ -110,7 +111,7 @@
           }else if(type=='+'){
               if(quantity>item.productStock)
                  {
-                     alert('商品不能超过库存的数量 ');
+                     Message.warning('商品不能超过库存的数量 ');
                      return;
                  }
               ++quantity;
@@ -129,6 +130,7 @@
       //删除购物商品
       delProduct(item){
           this.axios.delete(`/carts/${item.productId}`).then((res)=>{
+              Message.success("删除成功")
               this.renderData(res);
           })
       },
