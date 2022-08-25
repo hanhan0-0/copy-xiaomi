@@ -21,7 +21,7 @@ export default new Router({
             component: Home,
             redirect: '/login',
             children: [{
-                    path: '/index',
+                    path: 'index',
                     name: 'index',
                     component: Index,
                 },
@@ -69,6 +69,7 @@ export default new Router({
             ]
         }
 
-    ]
+    ],
+
 
 });

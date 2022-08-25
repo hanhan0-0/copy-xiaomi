@@ -1,0 +1,14 @@
+{
+    "presets": [
+        ["@babel/env", { "modules": false }]
+    ],
+    "plugins": [
+        [
+            "component",
+            {
+                "libraryName": "element-ui",
+                " styLeLibraryName": " theme-cha Lk"
+            }
+        ]
+    ]
+}

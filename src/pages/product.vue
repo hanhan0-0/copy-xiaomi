@@ -1,10 +1,10 @@
 <template>
   <div class="product">
-    <product-param v-bind:title="product.name">
+    <ProductParam v-bind:title="product.name">
       <template v-slot:buy>
         <button class="btn" @click="godetail">立即购买</button>
       </template>
-    </product-param>
+    </ProductParam>
     <div class="content">
       <div class="item-bg">
         <h2>{{product.name}}</h2>
